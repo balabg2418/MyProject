@@ -1,12 +1,36 @@
 Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'maven:3.9.12-eclipse-temurin-21-alpine' } }
+    agent any
     stages {
-        stage('build') {
+        stage('Checkout Code') {
             steps {
-                sh 'mvn --version'
+                // Checkout the Terraform code from the Git repository
+                git branch: 'main', credentialsId: '<YOUR_GITHUB_CREDENTIALS_ID>', url: '<YOUR_GITHUB_REPO_URL>'
             }
+        }
+        stage('Terraform Init') {
+            steps {
+                // Initialize Terraform to download providers and set up the backend
+                sh 'terraform init'
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                // Generate and show an execution plan
+                sh 'terraform plan'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                // Apply the changes to create/update AWS infrastructure
+                // --auto-approve flag is used for automation in CI/CD
+                sh 'terraform apply'
+            }
+        }
+        stage('Job Status'){
+        steps{
+            echo 'job completed Successfully'
         }
     }
 }
