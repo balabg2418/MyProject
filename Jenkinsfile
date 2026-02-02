@@ -1,5 +1,3 @@
-Jenkinsfile (Declarative Pipeline)
-/* Requires the Docker Pipeline plugin */
 pipeline {
     agent any
     stages {
@@ -28,9 +26,10 @@ pipeline {
                 sh 'terraform apply'
             }
         }
-        stage("Job Status"){
-        steps{
-            echo 'job completed Successfully'
+        stage("Job Status") {
+            steps {
+                echo 'Job completed successfully'
+            }
         }
     }
 }
