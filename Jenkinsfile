@@ -4,7 +4,7 @@ pipeline {
         stage("Checkout Code") {
             steps {
                 // Checkout the Terraform code from the Git repository
-                git branch: 'main', credentialsId: '<YOUR_GITHUB_CREDENTIALS_ID>', url: '<YOUR_GITHUB_REPO_URL>'
+                git branch: 'main', credentialsId: 'bg', url: 'https://github.com/balabg2418/MyProject.git'
             }
         }
         stage("Terraform Init") {
